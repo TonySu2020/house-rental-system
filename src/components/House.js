@@ -12,7 +12,12 @@ class House extends Component {
 
     render() {
         return(
-            <h1>House Page</h1>
+            this.props.agent !== null ? 
+                <div>
+                    <h1>House Page</h1>
+                </div>
+                :
+                <h1>Login to see this page</h1>
         )
     }
 }

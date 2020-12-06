@@ -19,8 +19,14 @@ class App extends Component {
 
   logout = () => {
     this.setState({
-      username: null,
+      agent: null,
     }, () => history.push("/login"))
+  }
+
+  updateAgent = (agent) => {
+    this.setState({
+      agent: agent
+    })
   }
   
   render() {
@@ -43,6 +49,7 @@ class App extends Component {
               <Route path="/login" render={(props) => 
                 <Login 
                   {...props}
+                  updateAgent = {this.updateAgent}
                 />
               }
               />
