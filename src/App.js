@@ -9,6 +9,11 @@ import House from './components/House';
 import Lease from './components/Lease';
 import Login from './components/Login';
 import Register from './components/Register';
+import CustomerDetail from './components/CustomerDetail';
+import OwnerDetail from './components/OwnerDetail';
+import HouseDetail from './components/HouseDetail';
+import LeaseDetail from './components/LeaseDetail';
+
 import './App.css';
 
 class App extends Component {
@@ -18,15 +23,27 @@ class App extends Component {
   }
 
   logout = () => {
+    localStorage.removeItem("agent");
     this.setState({
       agent: null,
     }, () => history.push("/login"))
   }
 
   updateAgent = (agent) => {
+    localStorage.setItem("agent", JSON.stringify(agent))
+    console.log(JSON.parse(localStorage.getItem("agent")))
     this.setState({
       agent: agent
     })
+  }
+
+  componentDidMount() {
+    let agent = localStorage.getItem("agent");
+    if(agent !== null) {
+      this.setState({
+        agent: JSON.parse(agent)
+      })
+    }
   }
   
   render() {
@@ -61,7 +78,7 @@ class App extends Component {
               }
               />
 
-              <Route path="/owners" render={(props) => 
+              <Route path="/owners" exact render={(props) => 
                 <Owner 
                   {...props}
                   agent = {this.state.agent}
@@ -69,7 +86,15 @@ class App extends Component {
               }
               />
 
-              <Route path="/customers" render={(props) => 
+              <Route path="/owners/:id" render={(props) => 
+                <OwnerDetail 
+                  {...props}
+                  agent = {this.state.agent}
+                />
+              }
+              />
+
+              <Route path="/customers" exact render={(props) => 
                 <Customer 
                   {...props}
                   agent = {this.state.agent}
@@ -77,7 +102,15 @@ class App extends Component {
               }
               />
 
-              <Route path="/houses" render={(props) => 
+              <Route path="/customers/:id" render={(props) => 
+                <CustomerDetail
+                  {...props}
+                  agent = {this.state.agent}
+                />
+              }
+              />
+
+              <Route path="/houses" exact render={(props) => 
                 <House 
                   {...props}
                   agent = {this.state.agent}
@@ -85,8 +118,24 @@ class App extends Component {
               }
               />
 
-              <Route path="/leases" render={(props) => 
+              <Route path="/houses/:id" render={(props) => 
+                <HouseDetail
+                  {...props}
+                  agent = {this.state.agent}
+                />
+              }
+              />
+
+              <Route path="/leases" exact render={(props) => 
                 <Lease 
+                  {...props}
+                  agent = {this.state.agent}
+                />
+              }
+              />
+
+              <Route path="/leases/:id" render={(props) => 
+                <LeaseDetail
                   {...props}
                   agent = {this.state.agent}
                 />
