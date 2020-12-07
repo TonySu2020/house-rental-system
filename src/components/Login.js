@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { login } from '../services/AgentService'
+import { login } from '../services/AgentService';
+import history from '../history';
 
 class Login extends Component {
 
@@ -13,10 +14,11 @@ class Login extends Component {
     login = () => {
         login(this.state.form).then(response => {
             if(response.responseCode === 200) {
-                
                 this.props.updateAgent(response.responseObj);
+                history.push("/")
             };
             alert(response.message);
+            
         })
     }
 

@@ -29,7 +29,7 @@ class Customer extends Component {
                 <div>
                     <h1>Customer Page</h1>
                     {this.state.customers.map(customer => 
-                        <div>
+                        <div key={customer.id}>
                             <h5>Id: {customer.id}</h5>
                             <h5>Name: {customer.firstName} {customer.lastName}</h5>
                             <h5>Email: {customer.email}</h5>

@@ -29,7 +29,7 @@ class Lease extends Component {
                 <div>
                     <h1>Lease Page</h1>
                     {this.state.leases.map(lease => 
-                        <div>
+                        <div key={lease.id}>
                             <h5>Id: {lease.id}</h5>
                             <h5>Customer: {lease.customer.firstName} {lease.customer.lastName}</h5>
                             <h5>Address: {lease.house.street}, {lease.house.city.city}, {lease.house.city.state}, {lease.house.city.zipCode}</h5>

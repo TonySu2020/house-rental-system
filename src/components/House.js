@@ -29,7 +29,7 @@ class House extends Component {
                 <div>
                     <h1>House Page</h1>
                     {this.state.houses.map(house => 
-                        <div>
+                        <div key={house.id}>
                             <h5>Id: {house.id}</h5>
                             <h5>Address: {house.street}, {house.city.city}, {house.city.state}, {house.city.zipCode}</h5>
                             <h5>Rent: ${house.rent}</h5>

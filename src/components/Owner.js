@@ -29,7 +29,7 @@ class Owner extends Component {
                 <div>
                     <h1>Owner Page</h1>
                     {this.state.owners.map(owner => 
-                        <div>
+                        <div key={owner.id}>
                             <h5>Id: {owner.id}</h5>
                             <h5>Name: {owner.firstName} {owner.lastName}</h5>
                             <h5>Email: {owner.email}</h5>
