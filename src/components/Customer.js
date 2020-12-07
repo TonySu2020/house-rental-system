@@ -99,8 +99,7 @@ class Customer extends Component {
                         </div>
                         
                     </div>
-                    
-
+                    <hr />
                     {this.state.customers.map(customer => 
                         <div className="row" key={customer.id}>
                             <div className="col-4">

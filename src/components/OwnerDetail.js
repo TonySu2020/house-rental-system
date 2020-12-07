@@ -83,26 +83,28 @@ class OwnerDetail extends Component {
 
                     {this.state.owner !== null && 
                         <div>
-                            <label htmlFor="id">Id: </label>
-                            <input id="id" value={this.state.owner.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
-                            <br />
-                            <label htmlFor="firstName">Firset Name: </label>
-                            <input id="firstName" value={this.state.owner.firstName} onChange={(event) => this.onChangeHandler(event, "firstName")}/>
-                            <br />
-                            <label htmlFor="lastName">Last Name: </label>
-                            <input id="lastName" value={this.state.owner.lastName} onChange={(event) => this.onChangeHandler(event, "lastName")}/>
-                            <br />
-                            <label htmlFor="email">Email: </label>
-                            <input id="email" value={this.state.owner.email} onChange={(event) => this.onChangeHandler(event, "email")}/>
-                            <br />
-                            <label htmlFor="phone">Phone: </label>
-                            <input id="phone" value={this.state.owner.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
-                            <br />
-                            <br />
+                            <div>
+                                <label htmlFor="id">Id: </label>
+                                <input id="id" value={this.state.owner.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
+                                <br />
+                                <label htmlFor="firstName">Firset Name: </label>
+                                <input id="firstName" value={this.state.owner.firstName} onChange={(event) => this.onChangeHandler(event, "firstName")}/>
+                                <br />
+                                <label htmlFor="lastName">Last Name: </label>
+                                <input id="lastName" value={this.state.owner.lastName} onChange={(event) => this.onChangeHandler(event, "lastName")}/>
+                                <br />
+                                <label htmlFor="email">Email: </label>
+                                <input id="email" value={this.state.owner.email} onChange={(event) => this.onChangeHandler(event, "email")}/>
+                                <br />
+                                <label htmlFor="phone">Phone: </label>
+                                <input id="phone" value={this.state.owner.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
+                                <br />
+                                <br />
 
-                            <button onClick={this.deleteOwnerById}>Delete</button>
-                            <button onClick={this.updateOwner}>Update</button>
-
+                                <button onClick={this.deleteOwnerById}>Delete</button>
+                                <button onClick={this.updateOwner}>Update</button>
+                            </div>
+                            <hr />
                         </div>
                     }
                     {this.state.owner === null &&

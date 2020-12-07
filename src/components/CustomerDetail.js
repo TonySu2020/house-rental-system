@@ -83,27 +83,30 @@ class CustomerDetail extends Component {
                     <h1>CustomerDetail Page</h1>
                     {this.state.customer !== null && 
                         <div>
-                            <label htmlFor="id">Id: </label>
-                            <input id="id" value={this.state.customer.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
-                            <br />
-                            <label htmlFor="firstName">Firset Name: </label>
-                            <input id="firstName" value={this.state.customer.firstName} onChange={(event) => this.onChangeHandler(event, "firstName")}/>
-                            <br />
-                            <label htmlFor="lastName">Last Name: </label>
-                            <input id="lastName" value={this.state.customer.lastName} onChange={(event) => this.onChangeHandler(event, "lastName")}/>
-                            <br />
-                            <label htmlFor="email">Email: </label>
-                            <input id="email" value={this.state.customer.email} onChange={(event) => this.onChangeHandler(event, "email")}/>
-                            <br />
-                            <label htmlFor="phone">Phone: </label>
-                            <input id="phone" value={this.state.customer.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
-                            <br />
-                            <br />
+                            <div>
+                                <label htmlFor="id">Id: </label>
+                                <input id="id" value={this.state.customer.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
+                                <br />
+                                <label htmlFor="firstName">Firset Name: </label>
+                                <input id="firstName" value={this.state.customer.firstName} onChange={(event) => this.onChangeHandler(event, "firstName")}/>
+                                <br />
+                                <label htmlFor="lastName">Last Name: </label>
+                                <input id="lastName" value={this.state.customer.lastName} onChange={(event) => this.onChangeHandler(event, "lastName")}/>
+                                <br />
+                                <label htmlFor="email">Email: </label>
+                                <input id="email" value={this.state.customer.email} onChange={(event) => this.onChangeHandler(event, "email")}/>
+                                <br />
+                                <label htmlFor="phone">Phone: </label>
+                                <input id="phone" value={this.state.customer.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
+                                <br />
+                                <br />
 
-                            <button onClick={this.deleteCustomer}>Delete</button>
-                            <button onClick={this.updateCustomer}>Update</button>
-
+                                <button onClick={this.deleteCustomer}>Delete</button>
+                                <button onClick={this.updateCustomer}>Update</button>
+                            </div>
+                            <hr />
                         </div>
+                        
                     }
                     {this.state.customer === null &&
                         <div>

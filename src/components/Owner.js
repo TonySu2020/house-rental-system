@@ -102,7 +102,7 @@ class Owner extends Component {
                         </div>
                     </div>
                     
-
+                    <hr />
                     {this.state.owners.map(owner => 
                         <div className="row" key={owner.id}>
                             <div className="col-4">

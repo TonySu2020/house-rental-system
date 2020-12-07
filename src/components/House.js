@@ -82,8 +82,7 @@ class House extends Component {
                 this.setState({
                     house: house
                 })
-            }
-            else {
+            } else {
                 alert(response.message);
                 house.owner = {
                     id: "",
@@ -113,19 +112,19 @@ class House extends Component {
         let value = event.target.value;
         switch(field) {
             case "id":
-                house.id = value.trim();
+                house.id = value;
                 break;
             case "street":
-                house.street = value.trim();
+                house.street = value;
                 break;
             case "city":
-                house.city.city = value.trim();
+                house.city.city = value;
                 break;
             case "state":
-                house.city.state = value.trim();
+                house.city.state = value;
                 break;
             case "zipCode":
-                house.city.zipCode = value.trim();
+                house.city.zipCode = value;
                 break;
             case "rent":
                 house.rent = Number(value);
@@ -152,22 +151,22 @@ class House extends Component {
                 house.networkInclude = !house.networkInclude;
                 break;
             case "note":
-                house.note = value.trim();
+                house.note = value;
                 break;
             case "ownerId":
-                house.owner.id = value.trim();
+                house.owner.id = value;
                 break;
             case "firstName":
-                house.owner.firstName = value.trim();
+                house.owner.firstName = value;
                 break;
             case "lastName":
-                house.owner.lastName = value.trim();
+                house.owner.lastName = value;
                 break;
             case "email":
-                house.owner.email = value.trim();
+                house.owner.email = value;
                 break;
             case "phone":
-                house.owner.phone = value.trim();
+                house.owner.phone = value;
                 break;
             default:
                 console.log("No input field match.")
@@ -216,8 +215,8 @@ class House extends Component {
                             <input id="bedroomNumber" value={this.state.house.bedroomNumber} onChange={(event) => this.onChangeHandler(event, "bedroomNumber")}/>
                             <br />
                             <label htmlFor="note">Note: </label>
-                            <input id="note" value={this.state.house.note} onChange={(event) => this.onChangeHandler(event, "note")}/>
-
+                            <br />
+                            <textarea id="note" value={this.state.house.note} cols="30" onChange={(event) => this.onChangeHandler(event, "note")}/>
                         </div>
                         <div className="col-4">
                             <h4>Include:</h4>
@@ -237,9 +236,6 @@ class House extends Component {
                             <input id="nearToTransit" type="checkbox" defaultChecked={this.state.house.nearToTransit} onChange={(event) => this.onChangeHandler(event, "nearToTransit")}/>
 
                             <h4>Owner Section</h4>
-                            {/* <label htmlFor=""></label>
-                            <input id="" value={} onChange={(event) => this.onChangeHandler(event, )}/> */}
-
                             <label htmlFor="ownerId">Id: </label>
                             <input id="ownerId" value={this.state.house.owner.id} onChange={(event) => this.onChangeHandler(event, "ownerId")}/>
                             <button onClick={this.getOwner}>Search For Owner</button>
@@ -261,7 +257,7 @@ class House extends Component {
                             <button onClick={this.addHouse}>Create</button>
                         </div>
                     </div>
-
+                    <hr />
                     {this.state.houses.map(house => 
                         <div className="row" key={house.id}>
                             <div className="col-6">
