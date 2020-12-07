@@ -94,20 +94,26 @@ class Customer extends Component {
                             <label htmlFor="phone">Phone: </label>
                             <input id="phone" value={this.state.customer.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
                         </div>
+                        <div className="col-4">
+                            <button onClick={this.addCustomer}>Create</button>
+                        </div>
                         
                     </div>
-                    <button onClick={this.addCustomer}>Create</button>
+                    
 
                     {this.state.customers.map(customer => 
                         <div className="row" key={customer.id}>
                             <div className="col-4">
                                 <h5>Id: {customer.id}</h5>
                                 <h5>Name: {customer.firstName} {customer.lastName}</h5>
-                                <Link to={`/customers/${customer.id}`}>Edit</Link>
+                                
                             </div>
                             <div className="col-4">
                                 <h5>Email: {customer.email}</h5>
                                 <h5>Phone: {customer.phone}</h5>
+                            </div>
+                            <div className="col-4">
+                                <Link to={`/customers/${customer.id}`}>Edit</Link>
                             </div>
                         </div>
                     )}

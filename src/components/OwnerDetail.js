@@ -19,6 +19,57 @@ class OwnerDetail extends Component {
         })
     }
 
+    deleteOwnerById = () => {
+        deleteOwnerById(this.state.owner.id).then(response => {
+            if(response.responseCode === 200) {
+                this.setState({
+                    owner: null
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    updateOwner = () => {
+        const owner = this.state.owner;
+        updateOwner(owner.id, owner).then(response => {
+            if(response.responseCode === 200) {
+                const owner = response.responseObj;
+                this.setState({
+                    owner: owner
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    onChangeHandler = (event, field) => {
+        let owner = this.state.owner;
+        let value = event.target.value;
+        switch(field) {
+            case "id":
+                owner.id = value;
+                break;
+            case "firstName":
+                owner.firstName = value;
+                break;
+            case "lastName":
+                owner.lastName = value;
+                break;
+            case "email":
+                owner.email = value;
+                break;
+            case "phone":
+                owner.phone = value;
+                break;
+            default:
+                console.log("No input field match.")
+        }
+        this.setState({
+            owner: owner,
+        })
+    }
+
     componentDidMount() {
         const id = this.props.match.params.id;
         this.getOwnerById(id);
@@ -29,13 +80,34 @@ class OwnerDetail extends Component {
             this.props.agent !== null ? 
                 <div>
                     <h1>OwnerDetail Page</h1>
-                    {this.state.owner !== null &&
+
+                    {this.state.owner !== null && 
                         <div>
-                            <h5>Id: {this.state.owner.id}</h5>
-                            <h5>First Name: {this.state.owner.firstName}</h5>
-                            <h5>Last Name: {this.state.owner.lastName}</h5>
-                            <h5>Email: {this.state.owner.email}</h5>
-                            <h5>Phone: {this.state.owner.phone}</h5>
+                            <label htmlFor="id">Id: </label>
+                            <input id="id" value={this.state.owner.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
+                            <br />
+                            <label htmlFor="firstName">Firset Name: </label>
+                            <input id="firstName" value={this.state.owner.firstName} onChange={(event) => this.onChangeHandler(event, "firstName")}/>
+                            <br />
+                            <label htmlFor="lastName">Last Name: </label>
+                            <input id="lastName" value={this.state.owner.lastName} onChange={(event) => this.onChangeHandler(event, "lastName")}/>
+                            <br />
+                            <label htmlFor="email">Email: </label>
+                            <input id="email" value={this.state.owner.email} onChange={(event) => this.onChangeHandler(event, "email")}/>
+                            <br />
+                            <label htmlFor="phone">Phone: </label>
+                            <input id="phone" value={this.state.owner.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
+                            <br />
+                            <br />
+
+                            <button onClick={this.deleteOwnerById}>Delete</button>
+                            <button onClick={this.updateOwner}>Update</button>
+
+                        </div>
+                    }
+                    {this.state.owner === null &&
+                        <div>
+                            <h1>This owner does not exist</h1>
                         </div>
                     }
                 </div>

@@ -15,20 +15,20 @@ class Header extends Component {
                         Home
                     </Link>
                     |
-                    <Link to="/customers">
-                        Customer
-                    </Link>
-                    |
                     <Link to="/owners">
                         Owner
                     </Link>
                     |
-                    <Link to="/leases">
-                        Lease
-                    </Link>
-                    |
                     <Link to="/houses">
                         House
+                    </Link>
+                    |
+                    <Link to="/customers">
+                        Customer
+                    </Link>
+                    |
+                    <Link to="/leases">
+                        Lease
                     </Link>
                     |
                     {this.props.agent !== null && 

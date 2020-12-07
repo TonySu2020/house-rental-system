@@ -43,7 +43,7 @@ class HouseDetail extends Component {
                                 <h5>bathroomNumber: {this.state.house.bathroomNumber}</h5>
                                 <h5>bedroomNumber: {this.state.house.bedroomNumber}</h5>
                                 <h5>electricityInclude: {this.state.house.electricityInclude ? "true" : "false"}</h5>
-                                <h5>waterInclude: {this.state.house.electricityInclude ? "true" : "false"}</h5>
+                                <h5>waterInclude: {this.state.house.waterInclude ? "true" : "false"}</h5>
                                 <h5>gasInclude: {this.state.house.gasInclude ? "true" : "false"}</h5>
                                 <h5>nearToTransit: {this.state.house.nearToTransit ? "true" : "false"}</h5>
                                 <h5>networkInclude: {this.state.house.networkInclude ? "true" : "false"}</h5>

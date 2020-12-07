@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getAllLease, getLeaseById, addLease, deleteLeaseById, updateLease } from '../services/LeaseService';
+import { getAllLease, addLease } from '../services/LeaseService';
+import { Link } from 'react-router-dom';
 
 class Lease extends Component {
 
