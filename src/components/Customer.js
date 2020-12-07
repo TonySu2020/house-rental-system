@@ -108,7 +108,6 @@ class Customer extends Component {
                             <div className="col-4">
                                 <h5>Email: {customer.email}</h5>
                                 <h5>Phone: {customer.phone}</h5>
-                                
                             </div>
                         </div>
                     )}
