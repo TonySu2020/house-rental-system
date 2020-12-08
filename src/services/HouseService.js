@@ -26,6 +26,12 @@ export const deleteHouseById = (id) =>
     })
     .then(response => response.json())
 
+export const hardDeleteHouseById = (id) =>
+    fetch(`${url}/${id}/hard`, {
+      method: 'DELETE'
+    })
+    .then(response => response.json())
+
 export const updateHouse = (id, house) =>
     fetch(`${url}/${id}`, {
       method: 'PUT',

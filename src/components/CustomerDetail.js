@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCustomerById, deleteCustomerById, updateCustomer } from '../services/CustomerService';
+import { getCustomerById, deleteCustomerById, hardDeleteCustomerById, updateCustomer } from '../services/CustomerService';
 // import history from '../history';
 
 class CustomerDetail extends Component {
@@ -21,6 +21,17 @@ class CustomerDetail extends Component {
 
     deleteCustomer = () => {
         deleteCustomerById(this.state.customer.id).then(response => {
+            if(response.responseCode === 200) {
+                this.setState({
+                    customer: null
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    hardDeleteCustomerById = () => {
+        hardDeleteCustomerById(this.state.customer.id).then(response => {
             if(response.responseCode === 200) {
                 this.setState({
                     customer: null
@@ -101,9 +112,11 @@ class CustomerDetail extends Component {
                                 <br />
                                 <br />
 
+                                <button onClick={this.updateCustomer}>Update</button>
+                                &nbsp;
                                 <button onClick={this.deleteCustomer}>Delete</button>
                                 &nbsp;
-                                <button onClick={this.updateCustomer}>Update</button>
+                                <button onClick={this.hardDeleteCustomerById}>HARD DELETE</button>
                             </div>
                             <hr />
                         </div>

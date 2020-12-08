@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getHouseById, deleteHouseById, updateHouse } from '../services/HouseService';
+import { getHouseById, deleteHouseById, hardDeleteHouseById, updateHouse } from '../services/HouseService';
 
 class HouseDetail extends Component {
 
@@ -21,6 +21,18 @@ class HouseDetail extends Component {
 
     deleteHouseById = () => {
         deleteHouseById(this.state.house.id).then(response => {
+            if(response.responseCode === 200) {
+                const house = response.responseObj;
+                this.setState({
+                    house: house
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    hardDeleteHouseById = () => {
+        hardDeleteHouseById(this.state.house.id).then(response => {
             if(response.responseCode === 200) {
                 const house = response.responseObj;
                 this.setState({
@@ -177,9 +189,12 @@ class HouseDetail extends Component {
                                 </div>
                             </div>
                             <br />
+                            
+                            <button onClick={this.updateHouse}>Update</button>
+                            &nbsp;
                             <button onClick={this.deleteHouseById}>Delete</button>
                             &nbsp;
-                            <button onClick={this.updateHouse}>Update</button>
+                            <button onClick={this.hardDeleteHouseById}>HARD DELETE</button>
 
                             <hr />
                             <div className="row margin-10 result">

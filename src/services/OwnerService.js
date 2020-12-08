@@ -34,6 +34,12 @@ export const deleteOwnerById = (id) =>
     })
     .then(response => response.json())
 
+  export const hardDeleteOwnerById = (id) =>
+    fetch(`${url}/${id}/hard`, {
+      method: 'DELETE'
+    })
+    .then(response => response.json())
+
 export const updateOwner = (id, owner) =>
     fetch(`${url}/${id}`, {
       method: 'PUT',

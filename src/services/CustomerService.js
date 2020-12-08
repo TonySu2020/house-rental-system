@@ -34,6 +34,12 @@ export const deleteCustomerById = (id) =>
     })
     .then(response => response.json())
 
+export const hardDeleteCustomerById = (id) =>
+    fetch(`${url}/${id}/hard`, {
+      method: 'DELETE'
+    })
+    .then(response => response.json())
+
 export const updateCustomer = (id, customer) =>
     fetch(`${url}/${id}`, {
       method: 'PUT',

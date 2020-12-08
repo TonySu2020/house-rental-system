@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getOwnerById, deleteOwnerById, updateOwner } from '../services/OwnerService';
+import { getOwnerById, deleteOwnerById, hardDeleteOwnerById, updateOwner } from '../services/OwnerService';
 
 class OwnerDetail extends Component {
 
@@ -21,6 +21,17 @@ class OwnerDetail extends Component {
 
     deleteOwnerById = () => {
         deleteOwnerById(this.state.owner.id).then(response => {
+            if(response.responseCode === 200) {
+                this.setState({
+                    owner: null
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    hardDeleteOwnerById = () => {
+        hardDeleteOwnerById(this.state.owner.id).then(response => {
             if(response.responseCode === 200) {
                 this.setState({
                     owner: null
@@ -101,9 +112,12 @@ class OwnerDetail extends Component {
                                 <br />
                                 <br />
 
+                                
+                                <button onClick={this.updateOwner}>Update</button>
+                                &nbsp;
                                 <button onClick={this.deleteOwnerById}>Delete</button>
                                 &nbsp;
-                                <button onClick={this.updateOwner}>Update</button>
+                                <button onClick={this.hardDeleteOwnerById}>HARD DELETE</button>
                             </div>
                             <hr />
                         </div>
