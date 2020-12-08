@@ -83,7 +83,7 @@ class CustomerDetail extends Component {
                     <h1>CustomerDetail Page</h1>
                     {this.state.customer !== null && 
                         <div>
-                            <div>
+                            <div className="create margin-10">
                                 <label htmlFor="id">Id: </label>
                                 <input id="id" value={this.state.customer.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
                                 <br />
@@ -102,6 +102,7 @@ class CustomerDetail extends Component {
                                 <br />
 
                                 <button onClick={this.deleteCustomer}>Delete</button>
+                                &nbsp;
                                 <button onClick={this.updateCustomer}>Update</button>
                             </div>
                             <hr />

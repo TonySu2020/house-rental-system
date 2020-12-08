@@ -127,8 +127,8 @@ class HouseDetail extends Component {
                     {this.state.house !== null && 
                         <div>
                             <h2>House Detail</h2>
-                            <div className="row">
-                                <div className="col-6">
+                            <div className="row margin-10 create">
+                                <div className="col-5 pull-left">
                                     <label htmlFor="id">Id:</label>
                                     <input id="id" value={this.state.house.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
                                     <br />
@@ -154,7 +154,7 @@ class HouseDetail extends Component {
                                     <label htmlFor="bedroomNumber">bedroomNumber: </label>
                                     <input id="bedroomNumber" value={this.state.house.bedroomNumber} onChange={(event) => this.onChangeHandler(event, "bedroomNumber")}/>
                                 </div>
-                                <div className="col-6">
+                                <div className="col-6 pull-left">
                                     <h4>Include:</h4>
                                     <label htmlFor="electricityInclude">Electricity: </label>
                                     <input id="electricityInclude" type="checkbox" defaultChecked={this.state.house.electricityInclude} onChange={(event) => this.onChangeHandler(event, "electricityInclude")}/>
@@ -176,8 +176,9 @@ class HouseDetail extends Component {
                                     <textarea id="note" value={this.state.house.note} cols="30" onChange={(event) => this.onChangeHandler(event, "note")}/>
                                 </div>
                             </div>
-
+                            <br />
                             <button onClick={this.deleteHouseById}>Delete</button>
+                            &nbsp;
                             <button onClick={this.updateHouse}>Update</button>
 
                             <hr />

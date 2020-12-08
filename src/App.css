@@ -2,3 +2,29 @@
   text-align: center;
 }
 
+div.pull-left {
+  text-align: left;
+}
+
+div.margin-10 {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+div.result {
+  border: solid gray;
+  padding: 10px;
+}
+
+div.create {
+  border: solid green;
+  padding: 10px;
+}
+
+div.detail {
+  text-align: left;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-left: 10%;
+  padding-right: 10%;
+}

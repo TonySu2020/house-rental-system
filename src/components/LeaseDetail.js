@@ -88,7 +88,7 @@ class LeaseDetail extends Component {
                     <h1>Lease Detail</h1>
                     {this.state.lease !== null &&
                     <div>
-                        <div>
+                        <div className="create margin-10">
                             <label htmlFor="id">Id: </label>
                             <input id="id" value={this.state.lease.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
                             <br />
@@ -103,6 +103,7 @@ class LeaseDetail extends Component {
                             <br />
                             <br />
                             <button onClick={this.deleteLeaseById}>Delete</button>
+                            &nbsp;
                             <button onClick={this.updateLease}>Update</button>
                         </div>   
                         <hr />

@@ -83,7 +83,7 @@ class OwnerDetail extends Component {
 
                     {this.state.owner !== null && 
                         <div>
-                            <div>
+                            <div className="create margin-10">
                                 <label htmlFor="id">Id: </label>
                                 <input id="id" value={this.state.owner.id} onChange={(event) => this.onChangeHandler(event, "id")} disabled/>
                                 <br />
@@ -102,6 +102,7 @@ class OwnerDetail extends Component {
                                 <br />
 
                                 <button onClick={this.deleteOwnerById}>Delete</button>
+                                &nbsp;
                                 <button onClick={this.updateOwner}>Update</button>
                             </div>
                             <hr />

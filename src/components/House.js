@@ -189,8 +189,8 @@ class House extends Component {
                 <div>
                     <h1>House Page</h1>
                     <h2>New House</h2>
-                    <div className="row">
-                        <div className="col-4">
+                    <div className="row margin-10 create">
+                        <div className="col-5 pull-left">
                             <h4>House Section</h4>
                             <label htmlFor="street">Street:</label>
                             <input id="street" value={this.state.house.street} onChange={(event) => this.onChangeHandler(event, "street")}/>
@@ -218,7 +218,7 @@ class House extends Component {
                             <br />
                             <textarea id="note" value={this.state.house.note} cols="30" onChange={(event) => this.onChangeHandler(event, "note")}/>
                         </div>
-                        <div className="col-4">
+                        <div className="col-5 pull-left">
                             <h4>Include:</h4>
                             <label htmlFor="electricityInclude">Electricity: </label>
                             <input id="electricityInclude" type="checkbox" defaultChecked={this.state.house.electricityInclude} onChange={(event) => this.onChangeHandler(event, "electricityInclude")}/>
@@ -253,19 +253,19 @@ class House extends Component {
                             <input id="phone" value={this.state.house.owner.phone} onChange={(event) => this.onChangeHandler(event, "phone")} disabled/>
 
                         </div>
-                        <div className="col-4">
+                        <div className="col-2 pull-left">
                             <button onClick={this.addHouse}>Create</button>
                         </div>
                     </div>
                     <hr />
                     {this.state.houses.map(house => 
-                        <div className="row" key={house.id}>
-                            <div className="col-6">
+                        <div className="row margin-10 result" key={house.id}>
+                            <div className="col-6 pull-left">
                                 <h5>Id: {house.id}</h5>
                                 <h5>Address: {house.street}, {house.city.city}, {house.city.state}, {house.city.zipCode}</h5>
                                 <h5>Rent: ${house.rent}</h5>
                             </div>
-                            <div className="col-6">
+                            <div className="col-6 pull-left">
                                 <Link to={`/houses/${house.id}`}>Edit</Link>
                             </div>
                         </div>

@@ -201,8 +201,8 @@ class Lease extends Component {
             this.props.agent !== null ? 
                 <div>
                     <h1>Lease Page</h1>
-                    <div className="row">
-                        <div className="col-4">
+                    <div className="row margin-10 create">
+                        <div className="col-5 pull-left">
                             <h4>Lease Section</h4>                        
                             <label htmlFor="actualRent">Rent: $</label>
                             <input id="actualRent" value={this.state.lease.actualRent} onChange={(event) => this.onChangeHandler(event, "actualRent")}/>
@@ -230,7 +230,7 @@ class Lease extends Component {
                             <label htmlFor="customerPhone">Phone: </label>
                             <input id="customerPhone" value={this.state.lease.customer.phone} onChange={(event) => this.onChangeHandler(event, "customerPhone")} disabled/>
                         </div>
-                        <div className="col-4">
+                        <div className="col-5 pull-left">
                             <h4>House Section</h4>
                             <label htmlFor="houseId">Id: </label>
                             <input id="houseId" value={this.state.lease.house.id} onChange={(event) => this.onChangeHandler(event, "houseId")}/>
@@ -263,24 +263,24 @@ class Lease extends Component {
                             <label htmlFor="ownerPhone">Phone: </label>
                             <input id="ownerPhone" value={this.state.lease.house.owner.phone} onChange={(event) => this.onChangeHandler(event, "ownerPhone")} disabled/>
                         </div>
-                        <div className="col-4">
+                        <div className="col-2 pull-left">
                             <button onClick={this.addLease}>Create</button>
                         </div>
                     </div>
                     <hr />
                     {this.state.leases.map(lease => 
-                        <div className="row" key={lease.id}>
-                            <div className="col-5">
+                        <div className="row margin-10 result" key={lease.id}>
+                            <div className="col-5 pull-left">
                                 <h5>Id: {lease.id}</h5>
                                 <h5>Customer: {lease.customer.firstName} {lease.customer.lastName}</h5>
                                 <h5>Address: {lease.house.street}, {lease.house.city.city}, {lease.house.city.state}, {lease.house.city.zipCode}</h5>
                             </div>
-                            <div className="col-5">
+                            <div className="col-5 pull-left">
                                 <h5>Rent: ${lease.actualRent}</h5>
                                 <h5>Start Date: {lease.startDate}</h5>
                                 <h5>End Date: {lease.endDate}</h5>
                             </div>
-                            <div className="col-2">
+                            <div className="col-2 pull-left">
                                 <Link to={`/leases/${lease.id}`}>Edit</Link>
                             </div>
                         </div>

@@ -78,8 +78,8 @@ class Owner extends Component {
                 <div>
                     <h1>Owner Page</h1>
                     <h2>New Customer</h2>
-                    <div className="row">
-                        <div className="col-4">
+                    <div className="row margin-10 create">
+                        <div className="col-5 pull-left">
                             <label htmlFor="id">Id: </label>
                             <input id="id" value={this.state.owner.id} onChange={(event) => this.onChangeHandler(event, "id")}/>
                             <br />
@@ -88,33 +88,32 @@ class Owner extends Component {
                             <br />
                             <label htmlFor="lastName">Last Name: </label>
                             <input id="lastName" value={this.state.owner.lastName} onChange={(event) => this.onChangeHandler(event, "lastName")}/>
-                            <br />
                         </div>
-                        <div className="col-4">
+                        <div className="col-5 pull-left">
                             <label htmlFor="email">Email: </label>
                             <input id="email" value={this.state.owner.email} onChange={(event) => this.onChangeHandler(event, "email")}/>
                             <br />
                             <label htmlFor="phone">Phone: </label>
                             <input id="phone" value={this.state.owner.phone} onChange={(event) => this.onChangeHandler(event, "phone")}/>
                         </div>
-                        <div className="col-4">
+                        <div className="col-2 pull-left">
                             <button onClick={this.addOwner}>Create</button>
                         </div>
                     </div>
                     
                     <hr />
                     {this.state.owners.map(owner => 
-                        <div className="row" key={owner.id}>
-                            <div className="col-4">
+                        <div className="row margin-10 result" key={owner.id}>
+                            <div className="col-5 pull-left">
                                 <h5>Id: {owner.id}</h5>
                                 <h5>Name: {owner.firstName} {owner.lastName}</h5>
                                 
                             </div>
-                            <div className="col-4">
+                            <div className="col-5 pull-left">
                                 <h5>Email: {owner.email}</h5>
                                 <h5>Phone: {owner.phone}</h5>
                             </div>
-                            <div className="col-4">
+                            <div className="col-2 pull-left">
                                 <Link to={`/owners/${owner.id}`}>Edit</Link>
                             </div>
                         </div>
