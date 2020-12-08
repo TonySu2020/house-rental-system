@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllCustomer, addCustomer} from '../services/CustomerService';
+import { getAllCustomer, getCustomerByEmail, getCustomerByPhone, addCustomer, getCustomerById} from '../services/CustomerService';
 import { Link } from 'react-router-dom';
 
 class Customer extends Component {
@@ -12,7 +12,73 @@ class Customer extends Component {
             lastName: "",
             email: "",
             phone: ""
+        },
+        search: {
+            searchId: "",
+            searchEmail: "",
+            searchPhone: "",
         }
+    }
+
+    searchInputHandler = (event, field) => {
+        let search = this.state.search;
+        let value = event.target.value;
+        search[field] = value;
+        this.setState({
+            search: search
+        })
+    }
+
+    searchById = () => {
+        const id = this.state.search.searchId.trim()
+        if(id === "") {
+            alert("Id can't be empty!")
+            return;
+        }
+        getCustomerById(id).then(response => {
+            if(response.responseCode === 200) {
+                const customer = response.responseObj;
+                this.setState({
+                    customers: [customer]
+                })
+            } else if(response.responseCode === 404) {
+                this.setState({
+                    customers: []
+                })
+            }
+        })
+    }
+
+    searchByEmail = () => {
+        const email = this.state.search.searchEmail.trim()
+        if(email === "") {
+            alert("Email can't be empty!")
+            return;
+        }
+        getCustomerByEmail(email).then(response => {
+            if(response.responseCode === 200) {
+                const customers = response.responseObj;
+                this.setState({
+                    customers: customers
+                })
+            }
+        })
+    }
+
+    searchByPhone = () => {
+        const phone = this.state.search.searchPhone.trim()
+        if(phone === "") {
+            alert("Phone can't be empty!")
+            return;
+        }
+        getCustomerByPhone(phone).then(response => {
+            if(response.responseCode === 200) {
+                const customers = response.responseObj;
+                this.setState({
+                    customers: customers
+                })
+            }
+        })
     }
 
     getAllCustomer = () => {
@@ -100,6 +166,32 @@ class Customer extends Component {
                         
                     </div>
                     <hr />
+                    <div className="margin-10 search">
+                        <h4>Search Bar</h4>
+                        <div className="row">
+                            <div className="col-4">
+                                <label htmlFor="searchId">Id: </label>
+                                <input id="searchId" value={this.state.search.searchId} onChange={(event) => this.searchInputHandler(event, "searchId")}/>
+                                <button onClick={this.searchById}>Search</button>
+                                <br />
+                                <button onClick={this.getAllCustomer}>Search All</button>
+                            </div>
+                            <div className="col-4">
+                                <label htmlFor="searchEmail">Email: </label>
+                                <input id="searchEmail" value={this.state.search.searchEmail} onChange={(event) => this.searchInputHandler(event, "searchEmail")}/>
+                                <button onClick={this.searchByEmail}>Search</button>
+                                <br />
+                                <label htmlFor="searchPhone">Phone: </label>
+                                <input id="searchPhone" value={this.state.search.searchPhone} onChange={(event) => this.searchInputHandler(event, "searchPhone")}/>
+                                <button onClick={this.searchByPhone}>Search</button>
+                            </div>
+                            <div className="col-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4>Showing: {this.state.customers.length} results</h4>
                     {this.state.customers.map(customer => 
                         <div className="row margin-10 result" key={customer.id}>
                             <div className="col-5 pull-left">

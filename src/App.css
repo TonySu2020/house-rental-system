@@ -21,6 +21,11 @@ div.create {
   padding: 10px;
 }
 
+div.search {
+  border: solid rosybrown;
+  padding: 10px;
+}
+
 div.detail {
   text-align: left;
   margin-left: 20%;

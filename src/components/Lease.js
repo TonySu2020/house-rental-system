@@ -45,6 +45,9 @@ class Lease extends Component {
                 }
     
             }
+        },
+        search: {
+            
         }
     }
 
@@ -139,6 +142,15 @@ class Lease extends Component {
 
     addLease = () => {
         let lease = this.state.lease;
+        console.log(lease)
+        if(lease.customer.id.trim() === "") {
+            alert("Customer id can't be empty!")
+            return;
+        }
+        if(String(lease.house.id).trim() === "") {
+            alert("House id can't be empty!")
+            return;
+        }
         lease.agent = {
             id: this.props.agent.id
         };
@@ -268,6 +280,44 @@ class Lease extends Component {
                         </div>
                     </div>
                     <hr />
+
+                    <div className="margin-10 search">
+                        <h4>Search Bar</h4>
+                        <div className="row">
+                            <div className="col-6">
+                                <button>Search Closed</button>
+                                <br />
+                                <br />
+                                <button>Search On Going</button>
+                                <br />
+                                <br />
+                                <button>Closing in 2 months</button>
+                                <br />
+                                <br />
+                                <button onClick={this.getAllLease}>Search All</button>
+                            </div>
+                            <div className="col-6">
+                                <label htmlFor="searchLeaseId">Lease Id: </label>
+                                <input id="searchLeaseId" />
+                                <button>Search</button>
+                                <br />
+                                <br />
+                                <label htmlFor="searchOwnerId">Owner Id: </label>
+                                <input id="searchOwnerId" />
+                                <button>Search</button>
+                                <br />
+                                <br />
+                                <label htmlFor="searchCustomerId">Customer Id: </label>
+                                <input id="searchCustomerId" />
+                                <button>Search</button>
+                                <br />
+                                <br />                                
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <h4>Showing: {this.state.leases.length} results</h4>
                     {this.state.leases.map(lease => 
                         <div className="row margin-10 result" key={lease.id}>
                             <div className="col-5 pull-left">

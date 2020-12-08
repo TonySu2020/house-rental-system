@@ -32,6 +32,9 @@ class House extends Component {
                 phone: "",
             }
 
+        },
+        search: {
+
         }
     }
 
@@ -48,7 +51,12 @@ class House extends Component {
     }
 
     getCity = () => {
-        getCityByZipCode(this.state.house.city.zipCode).then(response => {
+        let zipCode = this.state.house.city.zipCode.trim();
+        if(zipCode === "") {
+            alert("Zip code can't be empty!");
+            return;
+        }
+        getCityByZipCode(zipCode).then(response => {
             const house = this.state.house;
             if(response.city !== null && response.state !== null) {
                 house.city.state = response.state;
@@ -73,8 +81,13 @@ class House extends Component {
     }
 
     getOwner = () => {
-        getOwnerById(this.state.house.owner.id).then(response => {
-            const house = this.state.house;
+        let house = this.state.house;
+        if(house.owner.id.trim() === "") {
+            alert("Owner id can't be empty!");
+            return;
+        }
+        getOwnerById(house.owner.id).then(response => {
+            house = this.state.house;
             if(response.responseCode === 200) {
                 const owner = response.responseObj;
                 console.log(owner)
@@ -99,12 +112,32 @@ class House extends Component {
     }
 
     addHouse = () => {
-        addHouse(this.state.house).then(response => {
-            if(response.responseCode === 200) {
-                this.getAllHouse();
+        let house = this.state.house;
+        if(house.city.zipCode.trim() === "") {
+            alert("Zip code can't be empty!");
+            return;
+        }
+        if(house.owner.id.trim() === "") {
+            alert("Owner id can't be empty!");
+            return;
+        }
+        getCityByZipCode(house.city.zipCode.trim()).then(response => {
+            if(response.error !== undefined) {
+                alert("Invail zipcode!");
+                return;
             }
-            alert(response.message);
+            if(response.city === house.city.city && response.state === house.city.state) {
+                addHouse(house).then(response => {
+                    if(response.responseCode === 200) {
+                        this.getAllHouse();
+                    }
+                    alert(response.message);
+                })
+            } else {
+                alert("Zipcode doesn't match the city!");
+            }
         })
+        
     }
 
     onChangeHandler = (event, field) => {
@@ -208,12 +241,12 @@ class House extends Component {
                             <label htmlFor="rent">Rent: $</label>
                             <input id="rent" type="number" value={this.state.house.rent} onChange={(event) => this.onChangeHandler(event, "rent")}/>
                             <br />
-                            <label htmlFor="bathroomNumber">bathroomNumber: </label>
-                            <input id="bathroomNumber" value={this.state.house.bathroomNumber} onChange={(event) => this.onChangeHandler(event, "bathroomNumber")}/>
+                            <label htmlFor="bedroomNumber">Bedroom: </label>
+                            <input id="bedroomNumber" type="number" value={this.state.house.bedroomNumber} onChange={(event) => this.onChangeHandler(event, "bedroomNumber")}/>
                             <br />
-                            <label htmlFor="bedroomNumber">bedroomNumber: </label>
-                            <input id="bedroomNumber" value={this.state.house.bedroomNumber} onChange={(event) => this.onChangeHandler(event, "bedroomNumber")}/>
-                            <br />
+                            <label htmlFor="bathroomNumber">Bathroom: </label>
+                            <input id="bathroomNumber" type="number" value={this.state.house.bathroomNumber} onChange={(event) => this.onChangeHandler(event, "bathroomNumber")}/>
+                            <br />                            
                             <label htmlFor="note">Note: </label>
                             <br />
                             <textarea id="note" value={this.state.house.note} cols="30" onChange={(event) => this.onChangeHandler(event, "note")}/>
@@ -258,6 +291,58 @@ class House extends Component {
                         </div>
                     </div>
                     <hr />
+                    
+                    <div className="margin-10 search">
+                        <h4>Search Bar</h4>
+                        <div className="row">
+                            <div className="col-4 pull-left">
+                                <label htmlFor="searchZip">ZipCode: </label>
+                                <input id="searchZip" />
+                                <br />
+                                <label htmlFor="searchMin">Minimum: $</label>
+                                <input id="searchMin" type="number"/>
+                                <br />
+                                <label htmlFor="searchMax">Maximum: $</label>
+                                <input id="searchMax" type="number"/>
+                                <br />
+                                <label htmlFor="searchBed">Bedroom: </label>
+                                <input id="searchBed" type="number"/>
+                                <br />
+                                <label htmlFor="searchBath">Bathroom: </label>
+                                <input id="searchBath" type="number"/>
+                                <br />
+                                <button onClick={this.getAllHouse}>Search All</button>
+                                &nbsp;
+                                <button>Search</button>
+                            </div>
+                            <div className="col-4 pull-left">
+                                <label htmlFor="electricityInclude">Electricity: </label>
+                                <input id="electricityInclude" type="checkbox" defaultChecked={this.state.house.electricityInclude} onChange={(event) => this.onChangeHandler(event, "electricityInclude")}/>
+                                <br />
+                                <label htmlFor="waterInclude">Water: </label>
+                                <input id="waterInclude" type="checkbox" defaultChecked={this.state.house.waterInclude} onChange={(event) => this.onChangeHandler(event, "waterInclude")}/>
+                                <br />
+                                <label htmlFor="gasInclude">Gas: </label>
+                                <input id="gasInclude" type="checkbox" defaultChecked={this.state.house.gasInclude} onChange={(event) => this.onChangeHandler(event, "gasInclude")}/>
+                                <br />
+                                <label htmlFor="networkInclude">Network: </label>
+                                <input id="networkInclude" type="checkbox" defaultChecked={this.state.house.networkInclude} onChange={(event) => this.onChangeHandler(event, "networkInclude")}/>
+                                <br />
+                                <label htmlFor="nearToTransit">NearToTransit: </label>
+                                <input id="nearToTransit" type="checkbox" defaultChecked={this.state.house.nearToTransit} onChange={(event) => this.onChangeHandler(event, "nearToTransit")}/>
+                                <br />
+                                
+                            </div>
+                            <div className="col-4 pull-left">
+                                <label htmlFor="searchOwnerId">Owner Id: </label>
+                                <input id="searchOwnerId" />
+                                <button>Search</button>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Showing: {this.state.houses.length} results</h4>
                     {this.state.houses.map(house => 
                         <div className="row margin-10 result" key={house.id}>
                             <div className="col-6 pull-left">

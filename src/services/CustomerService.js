@@ -10,6 +10,14 @@ export const getCustomerById = (id) =>
     fetch(`${url}/${id}`)
     .then(response => response.json())
 
+export const getCustomerByEmail = (email) =>
+    fetch(`${url}/email/${email}`)
+    .then(response => response.json())
+
+export const getCustomerByPhone = (phone) =>
+    fetch(`${url}/phone/${phone}`)
+    .then(response => response.json())
+
 export const addCustomer = (customer) =>
     fetch(url, {
       method: 'POST',

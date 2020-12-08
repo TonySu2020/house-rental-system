@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllOwner, addOwner } from '../services/OwnerService';
+import { getAllOwner, getOwnerById, getOwnerByEmail, getOwnerByPhone,  addOwner } from '../services/OwnerService';
 import { Link } from 'react-router-dom';
 
 
@@ -13,7 +13,73 @@ class Owner extends Component {
             lastName: "",
             email: "",
             phone: ""
+        },
+        search: {
+            searchId: "",
+            searchEmail: "",
+            searchPhone: "",
         }
+    }
+
+    searchInputHandler = (event, field) => {
+        let search = this.state.search;
+        let value = event.target.value;
+        search[field] = value;
+        this.setState({
+            search: search
+        })
+    }
+
+    searchById = () => {
+        const id = this.state.search.searchId.trim();
+        if(id === "") {
+            alert("Id can't be empty!")
+            return;
+        }
+        getOwnerById(id).then(response => {
+            if(response.responseCode === 200) {
+                const owner = response.responseObj;
+                this.setState({
+                    owners: [owner]
+                })
+            } else if(response.responseCode === 404) {
+                this.setState({
+                    owners: []
+                })
+            }
+        })
+    }
+
+    searchByEmail = () => {
+        const email = this.state.search.searchEmail.trim();
+        if(email === "") {
+            alert("Email can't be empty!")
+            return;
+        }
+        getOwnerByEmail(email).then(response => {
+            if(response.responseCode === 200) {
+                const owners = response.responseObj;
+                this.setState({
+                    owners: owners
+                })
+            }
+        })
+    }
+
+    searchByPhone = () => {
+        const phone = this.state.search.searchPhone.trim();
+        if(phone === "") {
+            alert("Phone can't be empty!")
+            return;
+        }
+        getOwnerByPhone(phone).then(response => {
+            if(response.responseCode === 200) {
+                const owners = response.responseObj;
+                this.setState({
+                    owners: owners
+                })
+            }
+        })
     }
 
     getAllOwner = () => {
@@ -102,12 +168,38 @@ class Owner extends Component {
                     </div>
                     
                     <hr />
+
+                    <div className="margin-10 search">
+                        <h4>Search Bar</h4>
+                        <div className="row">
+                            <div className="col-4">
+                                <label htmlFor="searchId">Id: </label>
+                                <input id="searchId" value={this.state.search.searchId} onChange={(event) => this.searchInputHandler(event, "searchId")}/>
+                                <button onClick={this.searchById}>Search</button>
+                                <br />
+                                <button onClick={this.getAllOwner}>Search All</button>
+                            </div>
+                            <div className="col-4">
+                                <label htmlFor="searchEmail">Email: </label>
+                                <input id="searchEmail" value={this.state.search.searchEmail} onChange={(event) => this.searchInputHandler(event, "searchEmail")}/>
+                                <button onClick={this.searchByEmail}>Search</button>
+                                <br />
+                                <label htmlFor="searchPhone">Phone: </label>
+                                <input id="searchPhone" value={this.state.search.searchPhone} onChange={(event) => this.searchInputHandler(event, "searchPhone")}/>
+                                <button onClick={this.searchByPhone}>Search</button>
+                            </div>
+                            <div className="col-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Showing: {this.state.owners.length} results</h4>
                     {this.state.owners.map(owner => 
                         <div className="row margin-10 result" key={owner.id}>
                             <div className="col-5 pull-left">
                                 <h5>Id: {owner.id}</h5>
                                 <h5>Name: {owner.firstName} {owner.lastName}</h5>
-                                
                             </div>
                             <div className="col-5 pull-left">
                                 <h5>Email: {owner.email}</h5>

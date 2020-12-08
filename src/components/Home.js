@@ -35,9 +35,9 @@ class Home extends Component {
                 <div className="margin-10 create">
                     <h1>Home Page</h1>
                     <div className="home">
+                    <h2>We have:</h2>
                         <table>
                             <tbody>
-                                <tr><h2>We have:</h2></tr>
                                 <tr>
                                     <td>Customer: </td>
                                     <td>{numOfCustomer}</td>
