@@ -28,3 +28,13 @@ div.detail {
   padding-left: 10%;
   padding-right: 10%;
 }
+
+
+
+div.home {
+  height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center }
+div.home table {
+  margin: 0 }

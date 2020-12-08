@@ -182,13 +182,18 @@ class HouseDetail extends Component {
                             <button onClick={this.updateHouse}>Update</button>
 
                             <hr />
-                            <div>
-                                <h2>Owner Detail</h2>
-                                <h5>Id: {this.state.house.owner.id}</h5>
-                                <h5>First Name: {this.state.house.owner.firstName}</h5>
-                                <h5>Last Name: {this.state.house.owner.lastName}</h5>
-                                <h5>Email: {this.state.house.owner.email}</h5>
-                                <h5>Phone: {this.state.house.owner.phone}</h5>
+                            <div className="row margin-10 result">
+                                <div className="col-6 pull-left">
+                                    <h2>Owner Detail:</h2>
+                                    <h5>Id: {this.state.house.owner.id}</h5>
+                                    <h5>First Name: {this.state.house.owner.firstName}</h5>
+                                    <h5>Last Name: {this.state.house.owner.lastName}</h5>
+                                </div>
+                                <div className="col-6 pull-left">
+                                    <h2>Contact:</h2>
+                                    <h5>Email: {this.state.house.owner.email}</h5>
+                                    <h5>Phone: {this.state.house.owner.phone}</h5>
+                                </div>
                             </div>
                         </div>
                     }

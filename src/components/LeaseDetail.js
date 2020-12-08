@@ -39,11 +39,20 @@ class LeaseDetail extends Component {
     }
 
     updateLease = () => {
-        const lease = this.state.lease;
+        let lease = this.state.lease;
         updateLease(this.state.lease.id, lease).then(response => {
             if(response.responseCode === 200) {
+                lease = response.responseObj
+                if(lease.startDate != null) {
+                    let start = lease.startDate.split("T")[0];
+                    lease.startDate = start;
+                }
+                if(lease.endDate != null) {
+                    let end = lease.endDate.split("T")[0];
+                    lease.endDate = end;
+                }
                 this.setState({
-                    lease: response.responseObj
+                    lease: lease
                 })
             }
             alert(response.message);
@@ -107,49 +116,71 @@ class LeaseDetail extends Component {
                             <button onClick={this.updateLease}>Update</button>
                         </div>   
                         <hr />
-                        <div>
-                            <h2>House Detail</h2>
-                            <h5>Id: {this.state.lease.house.id}</h5>
-                            <h5>Street: {this.state.lease.house.street}</h5>
-                            <h5>City: {this.state.lease.house.city.city}</h5>
-                            <h5>State: {this.state.lease.house.city.state}</h5>
-                            <h5>Zip Code: {this.state.lease.house.city.zipCode}</h5>
-                            <h5>Rent: ${this.state.lease.house.rent}</h5>
-                            <h5>bathroomNumber: {this.state.lease.house.bathroomNumber}</h5>
-                            <h5>bedroomNumber: {this.state.lease.house.bedroomNumber}</h5>
-                            <h5>electricityInclude: {this.state.lease.house.electricityInclude ? "true" : "false"}</h5>
-                            <h5>waterInclude: {this.state.lease.house.electricityInclude ? "true" : "false"}</h5>
-                            <h5>gasInclude: {this.state.lease.house.gasInclude ? "true" : "false"}</h5>
-                            <h5>nearToTransit: {this.state.lease.house.nearToTransit ? "true" : "false"}</h5>
-                            <h5>networkInclude: {this.state.lease.house.networkInclude ? "true" : "false"}</h5>
-                            <h5>Note: {this.state.lease.house.note}</h5>
+
+                        <div className="row margin-10 result">
+                            <div className="col-4 pull-left">
+                                <h2>House Detail:</h2>
+                                <h5>Id: {this.state.lease.house.id}</h5>
+                                <h5>Street: {this.state.lease.house.street}</h5>
+                                <h5>City: {this.state.lease.house.city.city}</h5>
+                                <h5>State: {this.state.lease.house.city.state}</h5>
+                                <h5>Zip Code: {this.state.lease.house.city.zipCode}</h5>
+                                <h5>Rent: ${this.state.lease.house.rent}</h5>
+                                <h5>Bedroom: {this.state.lease.house.bedroomNumber}</h5>
+                                <h5>Bathroom: {this.state.lease.house.bathroomNumber}</h5>
+                            </div>
+                            <div className="col-4 pull-left">
+                                <h2>Include:</h2>
+                                <h5>Electricity: {this.state.lease.house.electricityInclude ? "TRUE" : "FALSE"}</h5>
+                                <h5>Water: {this.state.lease.house.electricityInclude ? "TRUE" : "FALSE"}</h5>
+                                <h5>Gas: {this.state.lease.house.gasInclude ? "TRUE" : "FALSE"}</h5>
+                                <h5>Network: {this.state.lease.house.networkInclude ? "TRUE" : "FALSE"}</h5>
+                                <h5>Near To Transit: {this.state.lease.house.nearToTransit ? "TRUE" : "FALSE"}</h5>
+                            </div>
+                            <div className="col-4 pull-left">
+                                <h2>Note: </h2>
+                                <h5>Note: {this.state.lease.house.note}</h5>
+                            </div>
                         </div>
-                        <hr />
-                        <div>
-                            <h2>Owner Detail</h2>
-                            <h5>Id: {this.state.lease.house.owner.id}</h5>
-                            <h5>First Name: {this.state.lease.house.owner.firstName}</h5>
-                            <h5>Last Name: {this.state.lease.house.owner.lastName}</h5>
-                            <h5>Email: {this.state.lease.house.owner.email}</h5>
-                            <h5>Phone: {this.state.lease.house.owner.phone}</h5>
+
+                        <div className="row margin-10 result">
+                            <div className="col-6 pull-left">
+                                <h2>Owner Detail: </h2>
+                                <h5>Id: {this.state.lease.house.owner.id}</h5>
+                                <h5>First Name: {this.state.lease.house.owner.firstName}</h5>
+                                <h5>Last Name: {this.state.lease.house.owner.lastName}</h5>                                
+                            </div>
+                            <div className="col-6 pull-left">
+                                <h2>Contacts: </h2>                        
+                                <h5>Email: {this.state.lease.house.owner.email}</h5>
+                                <h5>Phone: {this.state.lease.house.owner.phone}</h5>
+                            </div>
                         </div>
-                        <hr />
-                        <div>
-                            <h2>Customer Detail</h2>
-                            <h5>Id: {this.state.lease.customer.id}</h5>
-                            <h5>Firset Name: {this.state.lease.customer.firstName}</h5>
-                            <h5>Last Name: {this.state.lease.customer.lastName}</h5>
-                            <h5>Email: {this.state.lease.customer.email}</h5>
-                            <h5>Phone: {this.state.lease.customer.phone}</h5>
+                        <div className="row margin-10 result">
+                            <div className="col-6 pull-left">
+                                <h2>Customer Detail: </h2>
+                                <h5>Id: {this.state.lease.customer.id}</h5>
+                                <h5>Firset Name: {this.state.lease.customer.firstName}</h5>
+                                <h5>Last Name: {this.state.lease.customer.lastName}</h5>
+                            </div>
+                            <div className="col-6 pull-left">
+                                <h2>Contacts: </h2>
+                                <h5>Email: {this.state.lease.customer.email}</h5>
+                                <h5>Phone: {this.state.lease.customer.phone}</h5>
+                            </div>
                         </div>
-                        <hr />
-                        <div>
-                            <h2>Agent Detail</h2>
-                            <h5>Id: {this.state.lease.agent.id}</h5>
-                            <h5>Firset Name: {this.state.lease.agent.firstName}</h5>
-                            <h5>Last Name: {this.state.lease.agent.lastName}</h5>
-                            <h5>Email: {this.state.lease.agent.email}</h5>
-                            <h5>Phone: {this.state.lease.agent.phone}</h5>
+                        <div className="row margin-10 result">
+                            <div className="col-6 pull-left">
+                                <h2>Agent Detail: </h2>
+                                <h5>Id: {this.state.lease.agent.id}</h5>
+                                <h5>Firset Name: {this.state.lease.agent.firstName}</h5>
+                                <h5>Last Name: {this.state.lease.agent.lastName}</h5>
+                            </div>
+                            <div className="col-6 pull-left">
+                                <h2>Contacts: </h2>
+                                <h5>Email: {this.state.lease.agent.email}</h5>
+                                <h5>Phone: {this.state.lease.agent.phone}</h5>
+                            </div>
                         </div>
                     </div>
                     }

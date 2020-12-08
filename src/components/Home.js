@@ -32,32 +32,35 @@ class Home extends Component {
         const {numOfCustomer, numOfOwner, numOfCity, numOfHouse, numOfLease} = this.state;
         return(
             this.props.agent !== null ? 
-                <div>
+                <div className="margin-10 create">
                     <h1>Home Page</h1>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>numOfCustomer</td>
-                                <td>{numOfCustomer}</td>
-                            </tr>
-                            <tr>
-                                <td>numOfOwner</td>
-                                <td>{numOfOwner}</td>
-                            </tr>
-                            <tr>
-                                <td>numOfCity</td>
-                                <td>{numOfCity}</td>
-                            </tr>
-                            <tr>
-                                <td>numOfHouse</td>
-                                <td>{numOfHouse}</td>
-                            </tr>
-                            <tr>
-                                <td>numOfLease</td>
-                                <td>{numOfLease}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className="home">
+                        <table>
+                            <tbody>
+                                <tr><h2>We have:</h2></tr>
+                                <tr>
+                                    <td>Customer: </td>
+                                    <td>{numOfCustomer}</td>
+                                </tr>
+                                <tr>
+                                    <td>Owner: </td>
+                                    <td>{numOfOwner}</td>
+                                </tr>
+                                <tr>
+                                    <td>City: </td>
+                                    <td>{numOfCity}</td>
+                                </tr>
+                                <tr>
+                                    <td>House: </td>
+                                    <td>{numOfHouse}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lease: </td>
+                                    <td>{numOfLease}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 :
                 <h1>Login to see this page</h1>

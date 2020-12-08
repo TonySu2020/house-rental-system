@@ -46,7 +46,7 @@ class Login extends Component {
                 <label htmlFor="username">username</label>
                 <input id="username" onChange={(event) => this.onChangeHandler(event, "username")}/>
                 <label htmlFor="password" >password</label>
-                <input id="password" onChange={(event) => this.onChangeHandler(event, "password")}/>
+                <input id="password" type="password" onChange={(event) => this.onChangeHandler(event, "password")}/>
                 <button onClick={this.login}>Login</button>
             </div>
         )
