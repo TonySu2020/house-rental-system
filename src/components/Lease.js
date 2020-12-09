@@ -390,7 +390,7 @@ class Lease extends Component {
                         <div className="col-5 pull-left">
                             <h4>Lease Section</h4>                        
                             <label htmlFor="actualRent">Rent: $</label>
-                            <input id="actualRent" value={this.state.lease.actualRent} onChange={(event) => this.onChangeHandler(event, "actualRent")}/>
+                            <input id="actualRent" type="number" value={this.state.lease.actualRent} onChange={(event) => this.onChangeHandler(event, "actualRent")}/>
                             <br />
                             <label htmlFor="startDate">Start Date: </label>
                             <input id="startDate" type="date" value={this.state.lease.startDate} onChange={(event) => this.onChangeHandler(event, "startDate")}/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllHouse, addHouse , getAllByOwnerId } from '../services/HouseService';
+import { getAllHouse, addHouse, getAllByCondition, getAllByOwnerId } from '../services/HouseService';
 import { getOwnerById } from '../services/OwnerService';
 import { getCityByZipCode } from '../services/ApiService';
 import { Link } from 'react-router-dom';
@@ -35,6 +35,18 @@ class House extends Component {
         },
         search: {
             searchOwnerId: "",
+
+            searchZip: "",
+            searchBed: "",
+            searchBath: "",
+            searchMin: "",
+            searchMax: "",
+
+            searchElectricity: false,
+            searchWater: false,
+            searchGas: false,
+            searchNetwork: false,
+            searchNearToTransit: false,
         }
     }
 
@@ -42,6 +54,15 @@ class House extends Component {
         let search = this.state.search;
         let value = event.target.value;
         search[field] = value;
+        this.setState({
+            search: search
+        })
+    }
+
+    seachCheckBoxHandler = (field) => {
+        let search = this.state.search;
+        search[field] = !search[field]
+        console.log(search);
         this.setState({
             search: search
         })
@@ -62,6 +83,36 @@ class House extends Component {
             }
             alert(response.message);
         })
+    }
+
+    searchByCondition = () => {
+        const search = this.state.search;
+        let zip = search.searchZip
+        let bed = search.searchBed
+        let bath = search.searchBath
+        let min = search.searchMin
+        let max = search.searchMax
+        let ele = search.searchElectricity
+        let water = search.searchWater
+        let gas = search.searchGas
+        let net = search.searchNetwork
+        let transit = search.searchNearToTransit
+        if(zip.trim === "") {
+            alert("ZipCode can't be empty!")
+            return
+        }
+        zip = zip.trim();
+        getAllByCondition(zip, bed, bath, min, max, ele, water, gas, net, transit).then(response => {
+            if(response.responseCode === 200) {
+                const houses = response.responseObj;
+                console.log(houses)
+                this.setState({
+                    houses: houses
+                })
+            }
+            alert(response.message)
+        })
+
     }
 
     getAllHouse = () => {
@@ -323,39 +374,39 @@ class House extends Component {
                         <div className="row">
                             <div className="col-4 pull-left">
                                 <label htmlFor="searchZip">ZipCode: </label>
-                                <input id="searchZip" />
-                                <br />
-                                <label htmlFor="searchMin">Minimum: $</label>
-                                <input id="searchMin" type="number"/>
-                                <br />
-                                <label htmlFor="searchMax">Maximum: $</label>
-                                <input id="searchMax" type="number"/>
+                                <input id="searchZip" value={this.state.search.searchZip} onChange={(event) => this.searchInputHandler(event, "searchZip")}/>
                                 <br />
                                 <label htmlFor="searchBed">Bedroom: </label>
-                                <input id="searchBed" type="number"/>
+                                <input id="searchBed" type="number" value={this.state.search.searchBed} onChange={(event) => this.searchInputHandler(event, "searchBed")}/>
                                 <br />
                                 <label htmlFor="searchBath">Bathroom: </label>
-                                <input id="searchBath" type="number"/>
+                                <input id="searchBath" type="number" value={this.state.search.searchBath} onChange={(event) => this.searchInputHandler(event, "searchBath")}/>
+                                <br />
+                                <label htmlFor="searchMin">Minimum: $</label>
+                                <input id="searchMin" type="number" value={this.state.search.searchMin} onChange={(event) => this.searchInputHandler(event, "searchMin")}/>
+                                <br />
+                                <label htmlFor="searchMax">Maximum: $</label>
+                                <input id="searchMax" type="number" value={this.state.search.searchMax} onChange={(event) => this.searchInputHandler(event, "searchMax")}/>
                                 <br />
                                 <button onClick={this.getAllHouse}>Search All</button>
                                 &nbsp;
-                                <button>Search</button>
+                                <button onClick={this.searchByCondition}>Search</button>
                             </div>
                             <div className="col-4 pull-left">
-                                <label htmlFor="electricityInclude">Electricity: </label>
-                                <input id="electricityInclude" type="checkbox" defaultChecked={this.state.house.electricityInclude} onChange={(event) => this.onChangeHandler(event, "electricityInclude")}/>
+                                <label htmlFor="searchElectricity">Electricity: </label>
+                                <input id="searchElectricity" type="checkbox" defaultChecked={this.state.search.searchElectricity} onChange={() => this.seachCheckBoxHandler("searchElectricity")}/>
                                 <br />
-                                <label htmlFor="waterInclude">Water: </label>
-                                <input id="waterInclude" type="checkbox" defaultChecked={this.state.house.waterInclude} onChange={(event) => this.onChangeHandler(event, "waterInclude")}/>
+                                <label htmlFor="searchWater">Water: </label>
+                                <input id="searchWater" type="checkbox" defaultChecked={this.state.search.searchWater} onChange={() => this.seachCheckBoxHandler("searchWater")}/>
                                 <br />
-                                <label htmlFor="gasInclude">Gas: </label>
-                                <input id="gasInclude" type="checkbox" defaultChecked={this.state.house.gasInclude} onChange={(event) => this.onChangeHandler(event, "gasInclude")}/>
+                                <label htmlFor="searchGas">Gas: </label>
+                                <input id="searchGas" type="checkbox" defaultChecked={this.state.search.searchGas} onChange={() => this.seachCheckBoxHandler("searchGas")}/>
                                 <br />
-                                <label htmlFor="networkInclude">Network: </label>
-                                <input id="networkInclude" type="checkbox" defaultChecked={this.state.house.networkInclude} onChange={(event) => this.onChangeHandler(event, "networkInclude")}/>
+                                <label htmlFor="searchNetwork">Network: </label>
+                                <input id="searchNetwork" type="checkbox" defaultChecked={this.state.search.searchNetwork} onChange={() => this.seachCheckBoxHandler("searchNetwork")}/>
                                 <br />
-                                <label htmlFor="nearToTransit">NearToTransit: </label>
-                                <input id="nearToTransit" type="checkbox" defaultChecked={this.state.house.nearToTransit} onChange={(event) => this.onChangeHandler(event, "nearToTransit")}/>
+                                <label htmlFor="searchNearToTransit">NearToTransit: </label>
+                                <input id="searchNearToTransit" type="checkbox" defaultChecked={this.state.search.searchNearToTransit} onChange={() => this.seachCheckBoxHandler("searchNearToTransit")}/>
                                 <br />
                                 
                             </div>
