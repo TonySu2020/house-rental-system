@@ -31,6 +31,10 @@ class CustomerDetail extends Component {
     }
 
     hardDeleteCustomerById = () => {
+        const r = window.confirm("Deleting this customer will also delete the leases it is on! ARE YOU SURE YOU WANT TO DELETE IT?");
+        if(r !== true) {
+            return;
+        }
         hardDeleteCustomerById(this.state.customer.id).then(response => {
             if(response.responseCode === 200) {
                 this.setState({

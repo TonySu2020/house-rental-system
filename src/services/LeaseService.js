@@ -6,6 +6,26 @@ export const getAllLease = () =>
     fetch(url)
     .then(response => response.json())
 
+export const getAllByOwnerId = (id) =>
+    fetch(`${url}/owner/${id}`)
+    .then(response => response.json())
+
+export const getAllByCustomerId = (id) =>
+    fetch(`${url}/customer/${id}`)
+    .then(response => response.json())
+
+export const getAllClosed = () =>
+    fetch(`${url}/closed`)
+    .then(response => response.json())
+
+export const getAllOnGoing = () =>
+    fetch(`${url}/ongoing`)
+    .then(response => response.json())
+
+export const getAllClosing = () =>
+    fetch(`${url}/closing`)
+    .then(response => response.json())
+
 export const getLeaseById = (id) =>
     fetch(`${url}/${id}`)
     .then(response => response.json())

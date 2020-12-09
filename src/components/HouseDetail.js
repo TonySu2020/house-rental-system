@@ -32,6 +32,10 @@ class HouseDetail extends Component {
     }
 
     hardDeleteHouseById = () => {
+        const r = window.confirm("Deleting this house will also delete the leases it is on! ARE YOU SURE YOU WANT TO DELETE IT?");
+        if(r !== true) {
+            return;
+        }
         hardDeleteHouseById(this.state.house.id).then(response => {
             if(response.responseCode === 200) {
                 const house = response.responseObj;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllLease, addLease } from '../services/LeaseService';
+import { getAllLease, getAllByCustomerId, getAllByOwnerId, getAllClosed, getAllOnGoing, getAllClosing, addLease, getLeaseById } from '../services/LeaseService';
 import { getCustomerById } from '../services/CustomerService';
 import { getHouseById } from '../services/HouseService';
 import { Link } from 'react-router-dom';
@@ -47,8 +47,181 @@ class Lease extends Component {
             }
         },
         search: {
-            
+            searchLeaseId: "",
+            searchOwnerId: "",
+            searchCustomerId: ""
         }
+    }
+
+    searchInputHandler = (event, field) => {
+        let search = this.state.search;
+        let value = event.target.value;
+        search[field] = value;
+        this.setState({
+            search: search
+        })
+    }
+
+    searchById = () => {
+        const id = this.state.search.searchLeaseId.trim();
+        if(id === "") {
+            alert("Id can't be empty!")
+            return;
+        }
+        getLeaseById(id).then(response => {
+            if(response.responseCode === 200) {
+                const lease = response.responseObj;
+                if(lease.startDate != null) {
+                    let start = lease.startDate.split("T")[0];
+                    lease.startDate = start;
+                }
+                if(lease.endDate != null) {
+                    let end = lease.endDate.split("T")[0];
+                    lease.endDate = end;
+                }
+                this.setState({
+                    leases: [lease]
+                })
+            } else if(response.responseCode === 404) {
+                this.setState({
+                    leases: []
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    searchByOwnerId = () => {
+        const id = this.state.search.searchOwnerId.trim();
+        if(id === "") {
+            alert("Owner id can't be empty!")
+            return;
+        }
+        getAllByOwnerId(id).then(response => {
+            if(response.responseCode === 200) {
+                let leases = response.responseObj;
+                leases = leases.map(lease => {
+                    if(lease.startDate != null) {
+                        let start = lease.startDate.split("T")[0];
+                        lease.startDate = start;
+                    }
+                    if(lease.endDate != null) {
+                        let end = lease.endDate.split("T")[0];
+                        lease.endDate = end;
+                    }
+                    return lease;
+                })
+                this.setState({
+                    leases: leases
+                })
+            } else if(response.responseCode === 404) {
+                this.setState({
+                    leases: []
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    searchByCustomerId = () => {
+        const id = this.state.search.searchCustomerId.trim();
+        if(id === "") {
+            alert("Phone can't be empty!")
+            return;
+        }
+        getAllByCustomerId(id).then(response => {
+            if(response.responseCode === 200) {
+                let leases = response.responseObj;
+                leases = leases.map(lease => {
+                    if(lease.startDate != null) {
+                        let start = lease.startDate.split("T")[0];
+                        lease.startDate = start;
+                    }
+                    if(lease.endDate != null) {
+                        let end = lease.endDate.split("T")[0];
+                        lease.endDate = end;
+                    }
+                    return lease;
+                })
+                this.setState({
+                    leases: leases
+                })
+            } else if(response.responseCode === 404) {
+                this.setState({
+                    leases: []
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    searchClosed = () => {
+        getAllClosed().then(response => {
+            if(response.responseCode === 200) {
+                let leases = response.responseObj;
+                leases = leases.map(lease => {
+                    if(lease.startDate != null) {
+                        let start = lease.startDate.split("T")[0];
+                        lease.startDate = start;
+                    }
+                    if(lease.endDate != null) {
+                        let end = lease.endDate.split("T")[0];
+                        lease.endDate = end;
+                    }
+                    return lease;
+                })
+                this.setState({
+                    leases: leases
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    searchOnGoing = () => {
+        getAllOnGoing().then(response => {
+            if(response.responseCode === 200) {
+                let leases = response.responseObj;
+                leases = leases.map(lease => {
+                    if(lease.startDate != null) {
+                        let start = lease.startDate.split("T")[0];
+                        lease.startDate = start;
+                    }
+                    if(lease.endDate != null) {
+                        let end = lease.endDate.split("T")[0];
+                        lease.endDate = end;
+                    }
+                    return lease;
+                })
+                this.setState({
+                    leases: leases
+                })
+            }
+            alert(response.message);
+        })
+    }
+
+    searchClosing = () => {
+        getAllClosing().then(response => {
+            if(response.responseCode === 200) {
+                let leases = response.responseObj;
+                leases = leases.map(lease => {
+                    if(lease.startDate != null) {
+                        let start = lease.startDate.split("T")[0];
+                        lease.startDate = start;
+                    }
+                    if(lease.endDate != null) {
+                        let end = lease.endDate.split("T")[0];
+                        lease.endDate = end;
+                    }
+                    return lease;
+                })
+                this.setState({
+                    leases: leases
+                })
+            }
+            alert(response.message);
+        })
     }
 
     getAllLease = () => {
@@ -285,31 +458,31 @@ class Lease extends Component {
                         <h4>Search Bar</h4>
                         <div className="row">
                             <div className="col-6">
-                                <button>Search Closed</button>
+                                <button onClick={this.searchClosed}>Search Closed</button>
                                 <br />
                                 <br />
-                                <button>Search On Going</button>
+                                <button onClick={this.searchOnGoing}>Search On Going</button>
                                 <br />
                                 <br />
-                                <button>Closing in 2 months</button>
+                                <button onClick={this.searchClosing}>Closing in 2 months</button>
                                 <br />
                                 <br />
                                 <button onClick={this.getAllLease}>Search All</button>
                             </div>
                             <div className="col-6">
                                 <label htmlFor="searchLeaseId">Lease Id: </label>
-                                <input id="searchLeaseId" />
-                                <button>Search</button>
+                                <input id="searchLeaseId" value={this.state.search.searchLeaseId} onChange={(event) => this.searchInputHandler(event, "searchLeaseId")}/>
+                                <button onClick={this.searchById}>Search</button>
                                 <br />
                                 <br />
                                 <label htmlFor="searchOwnerId">Owner Id: </label>
-                                <input id="searchOwnerId" />
-                                <button>Search</button>
+                                <input id="searchOwnerId" value={this.state.search.searchOwnerId} onChange={(event) => this.searchInputHandler(event, "searchOwnerId")}/>
+                                <button onClick={this.searchByOwnerId}>Search</button>
                                 <br />
                                 <br />
                                 <label htmlFor="searchCustomerId">Customer Id: </label>
-                                <input id="searchCustomerId" />
-                                <button>Search</button>
+                                <input id="searchCustomerId" value={this.state.search.searchCustomerId} onChange={(event) => this.searchInputHandler(event, "searchCustomerId")}/>
+                                <button onClick={this.searchByCustomerId}>Search</button>
                                 <br />
                                 <br />                                
                             </div>

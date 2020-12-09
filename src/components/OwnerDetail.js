@@ -31,6 +31,10 @@ class OwnerDetail extends Component {
     }
 
     hardDeleteOwnerById = () => {
+        const r = window.confirm("Deleting this owner will also delete the its houses along with it, as well as the leases having those houses! ARE YOU SURE YOU WANT TO DELETE IT?");
+        if(r !== true) {
+            return;
+        }
         hardDeleteOwnerById(this.state.owner.id).then(response => {
             if(response.responseCode === 200) {
                 this.setState({

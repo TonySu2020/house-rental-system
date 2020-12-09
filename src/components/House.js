@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllHouse, addHouse } from '../services/HouseService';
+import { getAllHouse, addHouse , getAllByOwnerId } from '../services/HouseService';
 import { getOwnerById } from '../services/OwnerService';
 import { getCityByZipCode } from '../services/ApiService';
 import { Link } from 'react-router-dom';
@@ -34,8 +34,34 @@ class House extends Component {
 
         },
         search: {
-
+            searchOwnerId: "",
         }
+    }
+
+    searchInputHandler = (event, field) => {
+        let search = this.state.search;
+        let value = event.target.value;
+        search[field] = value;
+        this.setState({
+            search: search
+        })
+    }
+
+    searchByOwnerId = () => {
+        const id = this.state.search.searchOwnerId.trim();
+        if(id === "") {
+            alert("Id can't be empty!")
+            return;
+        }
+        getAllByOwnerId(id).then(response => {
+            if(response.responseCode === 200) {
+                const houses = response.responseObj;
+                this.setState({
+                    houses: houses
+                })
+            }
+            alert(response.message);
+        })
     }
 
     getAllHouse = () => {
@@ -335,8 +361,8 @@ class House extends Component {
                             </div>
                             <div className="col-4 pull-left">
                                 <label htmlFor="searchOwnerId">Owner Id: </label>
-                                <input id="searchOwnerId" />
-                                <button>Search</button>
+                                <input id="searchOwnerId" value={this.state.search.searchOwnerId} onChange={(event) => this.searchInputHandler(event, "searchOwnerId")}/>
+                                <button onClick={this.searchByOwnerId}>Search</button>
                                 <br />
                             </div>
                         </div>

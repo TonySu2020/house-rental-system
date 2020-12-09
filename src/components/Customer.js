@@ -101,6 +101,7 @@ class Customer extends Component {
             if(response.responseCode === 200) {
                 this.getAllCustomer();
             }
+            alert(response.message);
         })
     }
 

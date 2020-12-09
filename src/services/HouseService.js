@@ -6,6 +6,10 @@ export const getAllHouse = () =>
     fetch(url)
     .then(response => response.json())
 
+export const getAllByOwnerId = (id) =>
+    fetch(`${url}/owner/${id}`)
+    .then(response => response.json())
+
 export const getHouseById = (id) =>
     fetch(`${url}/${id}`)
     .then(response => response.json())
