@@ -96,11 +96,29 @@ class House extends Component {
         let gas = search.searchGas
         let net = search.searchNetwork
         let transit = search.searchNearToTransit
-        if(zip.trim === "") {
+        if(zip.trim() === "") {
             alert("ZipCode can't be empty!")
             return
         }
         zip = zip.trim();
+        if(bed === "") {
+            alert("Number of bedroom can't be empty!")
+            return
+        }
+        bed = Math.ceil(bed)
+        if(bath === "") {
+            alert("Number of bathroom can't be empty!")
+            return
+        }
+        bath = Math.ceil(bath)
+        if(min === "") {
+            alert("Minimum can't be empty!")
+            return
+        }
+        if(max === "") {
+            alert("Maximum can't be empty!")
+            return
+        }
         getAllByCondition(zip, bed, bath, min, max, ele, water, gas, net, transit).then(response => {
             if(response.responseCode === 200) {
                 const houses = response.responseObj;
