@@ -71,7 +71,6 @@ class LeaseDetail extends Component {
                 break;
             case "startDate":
                 lease.startDate = value;
-                console.log(value)
                 break;
             case "endDate":
                 lease.endDate = value;

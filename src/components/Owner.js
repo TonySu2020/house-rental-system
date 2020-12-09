@@ -86,7 +86,6 @@ class Owner extends Component {
         getAllOwner().then(response => {
             if(response.responseCode === 200) {
                 const owners = response.responseObj;
-                console.log(owners)
                 this.setState({
                     owners: owners
                 })

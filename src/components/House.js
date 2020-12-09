@@ -62,7 +62,6 @@ class House extends Component {
     seachCheckBoxHandler = (field) => {
         let search = this.state.search;
         search[field] = !search[field]
-        console.log(search);
         this.setState({
             search: search
         })
@@ -105,7 +104,6 @@ class House extends Component {
         getAllByCondition(zip, bed, bath, min, max, ele, water, gas, net, transit).then(response => {
             if(response.responseCode === 200) {
                 const houses = response.responseObj;
-                console.log(houses)
                 this.setState({
                     houses: houses
                 })
@@ -119,7 +117,6 @@ class House extends Component {
         getAllHouse().then(response => {
             if(response.responseCode === 200) {
                 const houses = response.responseObj;
-                console.log(houses)
                 this.setState({
                     houses: houses
                 })
@@ -142,7 +139,6 @@ class House extends Component {
                     house: house
                 })
             }
-            console.log(response.error)
             if(response.error !== undefined) {
                 alert("Invail ZipCode")
                 house.city = {
@@ -167,7 +163,6 @@ class House extends Component {
             house = this.state.house;
             if(response.responseCode === 200) {
                 const owner = response.responseObj;
-                console.log(owner)
                 house.owner = owner
                 this.setState({
                     house: house
@@ -281,7 +276,6 @@ class House extends Component {
             default:
                 console.log("No input field match.")
         }
-        console.log(house);
         this.setState({
             house: house,
         })

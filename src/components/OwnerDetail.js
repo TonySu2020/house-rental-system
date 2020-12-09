@@ -11,7 +11,6 @@ class OwnerDetail extends Component {
         getOwnerById(id).then(response => {
             if(response.responseCode === 200) {
                 const owner = response.responseObj;
-                console.log(owner)
                 this.setState({
                     owner: owner
                 })

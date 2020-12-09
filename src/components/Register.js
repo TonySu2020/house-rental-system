@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 class Register extends Component {
 
-    componentDidMount() {
-        console.log("Register monented")
-    }
-
     render() {
         return(
             <h1>Register Page</h1>

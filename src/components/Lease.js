@@ -315,7 +315,6 @@ class Lease extends Component {
 
     addLease = () => {
         let lease = this.state.lease;
-        console.log(lease)
         if(lease.customer.id.trim() === "") {
             alert("Customer id can't be empty!")
             return;

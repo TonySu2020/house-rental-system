@@ -31,7 +31,6 @@ class App extends Component {
 
   updateAgent = (agent) => {
     localStorage.setItem("agent", JSON.stringify(agent))
-    console.log(JSON.parse(localStorage.getItem("agent")))
     this.setState({
       agent: agent
     })

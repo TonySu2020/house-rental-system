@@ -11,7 +11,6 @@ class HouseDetail extends Component {
         getHouseById(id).then(response => {
             if(response.responseCode === 200) {
                 const house = response.responseObj;
-                console.log(house)
                 this.setState({
                     house: house
                 })
@@ -123,7 +122,6 @@ class HouseDetail extends Component {
             default:
                 console.log("No input field match.")
         }
-        console.log(house);
         this.setState({
             house: house,
         })

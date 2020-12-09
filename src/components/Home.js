@@ -12,7 +12,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        console.log("Home monented")
         getOverview().then(response => {
             if(response.responseCode === 200) {
                 const summary = response.responseObj;

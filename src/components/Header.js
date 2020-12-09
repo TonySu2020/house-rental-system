@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom'
 
 class Header extends Component {
 
-    componentDidMount() {
-        console.log("Header monented")
-    }
-
     render() {
         return(
             <div className="header">
