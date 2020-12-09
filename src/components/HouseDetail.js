@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
 import { getHouseById, deleteHouseById, hardDeleteHouseById, updateHouse } from '../services/HouseService';
+import { getCityByZipCode } from '../services/ApiService';
 
 class HouseDetail extends Component {
 
     state = {
         house: null
+    }
+
+    getCity = () => {
+        let zipCode = this.state.house.city.zipCode.trim();
+        if(zipCode === "") {
+            alert("Zip code can't be empty!");
+            return;
+        }
+        getCityByZipCode(zipCode).then(response => {
+            const house = this.state.house;
+            if(response.city !== null && response.state !== null) {
+                house.city.state = response.state;
+                house.city.city = response.city;
+                this.setState({
+                    house: house
+                })
+            }
+            if(response.error !== undefined) {
+                alert("Invail ZipCode")
+            }
+        })
     }
 
     getHouseById = (id) => {
@@ -47,14 +69,29 @@ class HouseDetail extends Component {
     }
 
     updateHouse = () => {
-        updateHouse(this.state.house.id, this.state.house).then(response => {
-            if(response.responseCode === 200) {
-                const house = response.responseObj;
-                this.setState({
-                    house: house
-                })
+        let house = this.state.house;
+        if(house.city.zipCode.trim() === "") {
+            alert("Zip code can't be empty!");
+            return;
+        }
+        getCityByZipCode(house.city.zipCode.trim()).then(response => {
+            if(response.error !== undefined) {
+                alert("Invail zipcode!");
+                return;
             }
-            alert(response.message);
+            if(response.city === house.city.city && response.state === house.city.state) {
+                updateHouse(this.state.house.id, this.state.house).then(response => {
+                    if(response.responseCode === 200) {
+                        const house = response.responseObj;
+                        this.setState({
+                            house: house
+                        })
+                    }
+                    alert(response.message);
+                })
+            } else {
+                alert("Zipcode doesn't match the city!");
+            }
         })
     }
 

@@ -159,14 +159,6 @@ class House extends Component {
             }
             if(response.error !== undefined) {
                 alert("Invail ZipCode")
-                house.city = {
-                    city: "",
-                    state: "",
-                    zipCode: "",
-                }
-                this.setState({
-                    house: house
-                })
             }
         })
     }

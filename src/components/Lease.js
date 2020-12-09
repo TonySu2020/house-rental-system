@@ -247,7 +247,12 @@ class Lease extends Component {
     }
 
     getCustomer = () => {
-        getCustomerById(this.state.lease.customer.id).then(response => {
+        let id = this.state.lease.customer.id.trim();
+        if(id === "") {
+            alert("Customer id can't be empty!");
+            return 
+        }
+        getCustomerById(id).then(response => {
             const lease = this.state.lease;
             if(response.responseCode === 200) {
                 lease.customer = response.responseObj;
@@ -271,7 +276,12 @@ class Lease extends Component {
     }
 
     getHouse = () => {
-        getHouseById(this.state.lease.house.id).then(response => {
+        let id = this.state.lease.house.id;
+        if(id === "") {
+            alert("House id can't be empty!");
+            return 
+        }
+        getHouseById(id).then(response => {
             const lease = this.state.lease;
             if(response.responseCode === 200) {
                 lease.house = response.responseObj;
@@ -366,7 +376,7 @@ class Lease extends Component {
                 lease.customer.id = value;
                 break;
             case "houseId":
-                lease.house.id = value;
+                lease.house.id = Math.round(value);
                 break;
             default:
                 console.log("No input field match.")
@@ -417,7 +427,7 @@ class Lease extends Component {
                         <div className="col-5 pull-left">
                             <h4>House Section</h4>
                             <label htmlFor="houseId">Id: </label>
-                            <input id="houseId" value={this.state.lease.house.id} onChange={(event) => this.onChangeHandler(event, "houseId")}/>
+                            <input id="houseId" type="number" value={this.state.lease.house.id} onChange={(event) => this.onChangeHandler(event, "houseId")}/>
                             <button onClick={this.getHouse}>Search For House</button>
                             <br />
                             <label htmlFor="rent">Rent: $</label>
